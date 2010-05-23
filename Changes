@@ -1,0 +1,6 @@
+Revision history for Classic::Perl
+
+0.01    23 May, 2010
+        First version, released on an unsuspecting world. It provides
+        split  to  @_  in void  and  scalar  context  for  perl  5.12
+        and higher.

@@ -1,0 +1,10 @@
+Changes
+lib/Classic/Perl.pm
+Makefile.PL
+MANIFEST
+ptable.h
+README
+t/split.t
+xs/new.xs
+xs/old.xs
+META.yml                                 Module meta-data (added by MakeMaker)
