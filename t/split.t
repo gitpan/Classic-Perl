@@ -1,6 +1,6 @@
 #!./perl
 
-use Test::More tests => 9;
+use Test::More tests => 12;
 use warnings;
 no warnings <deprecated syntax>;
 
@@ -34,6 +34,22 @@ is "@_", "@old", 'the old void behaviour is restored with no CP';
 @_ = ();
 split //, "plin";
 is "@_", "@old", 'CP lasts only till the end of the block';
+
+use Classic::Perl '$*';
+@_ = ();
+split //, "plin";
+is "@_", "@old", 'other CP pragmata do not turn on split';
+
+{
+ use Classic::::Perl 5.011;
+ @_ = ();
+ split //, "plin";
+ is "@_", "@old", 'Classic::::Perl 5.011 leaves split off';
+ use Classic::::Perl 5.010;
+ split //, "plin";
+ is "@_", "p l i n", 'Classic::::Perl 5.010 turns split on';
+}
+
 use warnings 'void';
 
 # Cases that should still warn

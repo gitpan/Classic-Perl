@@ -4,6 +4,8 @@ Makefile.PL
 MANIFEST
 ptable.h
 README
+t/import.t
+t/multiline.t
 t/split.t
 xs/new.xs
 xs/old.xs

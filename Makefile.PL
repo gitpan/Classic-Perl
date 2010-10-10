@@ -29,7 +29,12 @@ WriteMakefile(
     ABSTRACT_FROM    => 'lib/Classic/Perl.pm',
     PREREQ_PM        => {
          Test'More => 0,
-        'XSLoader' => 0,
+         $]>5.0089999 ? (
+          'XSLoader' => 0,
+         ) : (),
+         $]>5.0130069 ? (
+           re        => 0,
+         ) : (),
     },
     MIN_PERL_VERSION => 5,
     META_MERGE       => \%META,
@@ -46,7 +51,7 @@ unlink 'Perl.xs';
 
 use File'Spec'Functions;
 sub MY'postamble {
-  my $xs_file = catfile("xs", $] < 5.012 ? 'old.xs' : 'new.xs');
+  my $xs_file = catfile("xs", $] < 5.0089999 ? 'old.xs' : 'new.xs');
   <<END;
 Perl.xs : $xs_file
 	perl -MFile::Copy "-ecopy '$xs_file', 'Perl.xs'"

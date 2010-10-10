@@ -1,11 +1,20 @@
-Classic::Perl, version 0.01
+Classic::Perl, version 0.02
 
-This  module  aims  to  reinstate  features  deleted  in  recent  ver-
-sions of perl.
+This reinstates features deleted in recent versions of perl.
 
-So far,  the only feature we have is split to  @_  in void and scalar
-context. This feature was removed in perl 5.12. With this module, you
-can have it back.
+The features we currently provide are:
+
+• split to @_ in void and scalar context. This feature was removed in
+  perl 5.11. With this module, you can have it back.
+
+• $* - This was removed in perl 5.9.
+
+
+CHANGES IN THIS RELEASE
+
+• $* in perl 5.9 and higher
+• use Classic::::Perl 5.008 import syntax
+• Fixed to work with perls built with -DDEBUGGING.
 
 
 INSTALLATION

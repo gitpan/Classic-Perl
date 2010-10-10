@@ -1,5 +1,10 @@
 Revision history for Classic::Perl
 
+0.02    10 October, 2010
+      • $* in perl 5.9 and higher
+      • use Classic::::Perl 5.008 import syntax
+      • Fixed to work with perls built with -DDEBUGGING.
+
 0.01    23 May, 2010
         First version, released on an unsuspecting world. It provides
         split  to  @_  in void  and  scalar  context  for  perl  5.12
