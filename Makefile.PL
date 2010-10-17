@@ -25,7 +25,9 @@ WriteMakefile(
     NAME             => 'Classic::Perl',
     AUTHOR           => 'Father Chrysostomos <sprout at, er, cpan.org>',
     LICENSE          => 'perl',
-    VERSION_FROM     => 'lib/Classic/Perl.pm',
+#    VERSION_FROM     => 'lib/Classic/Perl.pm',
+    VERSION          => '0.02a',
+    XS_VERSION       => '0.02',
     ABSTRACT_FROM    => 'lib/Classic/Perl.pm',
     PREREQ_PM        => {
          Test'More => 0,

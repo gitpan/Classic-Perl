@@ -10,8 +10,15 @@ The features we currently provide are:
 • $* - This was removed in perl 5.9.
 
 
-CHANGES IN THIS RELEASE
+RECENT CHANGES
 
+0.02a
+-----
+Make a test more resilient when certain OSes scramble line numbers in
+string evals.
+
+0.02
+----
 • $* in perl 5.9 and higher
 • use Classic::::Perl 5.008 import syntax
 • Fixed to work with perls built with -DDEBUGGING.

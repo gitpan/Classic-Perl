@@ -1,5 +1,9 @@
 Revision history for Classic::Perl
 
+0.02a   17 October, 2010
+        Make a test more resilient when certain OSes scramble line
+        numbers in string evals.
+
 0.02    10 October, 2010
       • $* in perl 5.9 and higher
       • use Classic::::Perl 5.008 import syntax
