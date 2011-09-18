@@ -22,6 +22,9 @@
 #endif
 
 /* Features */
+#if CP_HAS_PERL(5, 15, 3)
+# define CP_ARYBASE
+#endif
 #if CP_HAS_PERL(5, 11, 0)
 # define CP_SPLIT
 #endif
@@ -124,6 +127,86 @@ STATIC void cp_map_delete(pTHX_ const OP *o) {
 #endif
 }
 
+
+/* ========== ARYBASE FEATURE ========== */
+
+#ifdef CP_ARYBASE
+
+STATIC void set_arybase_to(pTHX_ IV base) {
+#define set_arybase_to(base) set_arybase_to(aTHX_ (base))
+ ENTER;
+ Perl_load_module(aTHX_ 0, newSVpvs("Array::Base"), newSVnv(4/((NV)1000)),
+   newSViv(base), NULL);
+ Perl_load_module(aTHX_ 0, newSVpvs("String::Base"), NULL,
+   newSViv(base), NULL);
+ LEAVE;
+}
+
+STATIC OP *(*cp_arybase_old_ck_sassign)(pTHX_ OP *) = 0;
+STATIC OP *(*cp_arybase_old_ck_aassign)(pTHX_ OP *) = 0;
+
+#define arybase     "Classic_Perl__$["
+#define arybase_len  (sizeof(arybase)-1)
+
+STATIC bool cp_op_is_dollar_bracket(pTHX_ OP *o) {
+#define cp_op_is_dollar_bracket(o) cp_op_is_dollar_bracket(aTHX_ (o))
+ OP *c;
+ return o->op_type == OP_RV2SV && (o->op_flags & OPf_KIDS)
+  && (c = cUNOPx(o)->op_first)
+  && c->op_type == OP_GV
+  && strEQ(GvNAME(cGVOPx_gv(c)), "[");
+}
+
+STATIC void cp_neuter_dollar_bracket(pTHX_ OP *o) {
+#define cp_neuter_dollar_bracket(o) cp_neuter_dollar_bracket(aTHX_ (o))
+ OP *oldc, *newc;
+ /*
+  * Must replace the core's $[ with something that can accept assignment
+  * of non-zero value and can be local()ised.  Simplest thing is a
+  * different global variable.
+  */
+ oldc = cUNOPx(o)->op_first;
+ newc = newGVOP(OP_GV, 0,
+   gv_fetchpvs("Classic::Perl::[", GV_ADDMULTI, SVt_PVGV));
+ cUNOPx(o)->op_first = newc;
+ op_free(oldc);
+}
+
+STATIC void cp_arybase_process_assignment(pTHX_ SV *hsv, OP *left, OP *right) {
+#define cp_arybase_process_assignment(h, l, r) \
+    cp_arybase_process_assignment(aTHX_ (h), (l), (r))
+ if (cp_op_is_dollar_bracket(left) && right->op_type == OP_CONST) {
+  IV base = SvIV(cSVOPx_sv(right));
+  sv_setiv_mg(hsv, base);
+  set_arybase_to(base);
+  cp_neuter_dollar_bracket(left);
+ }
+}
+
+STATIC OP *cp_arybase_ck_sassign(pTHX_ OP *o) {
+ SV *hintsv = cp_hint(arybase, arybase_len);
+ o = (*cp_arybase_old_ck_sassign)(aTHX_ o);
+ if (hintsv && SvOK(hintsv)) {
+  OP *right = cBINOPx(o)->op_first;
+  OP *left = right->op_sibling;
+  cp_arybase_process_assignment(hintsv, left, right);
+ }
+ return o;
+}
+
+STATIC OP *cp_arybase_ck_aassign(pTHX_ OP *o) {
+ SV *hintsv = cp_hint(arybase, arybase_len);
+ o = (*cp_arybase_old_ck_aassign)(aTHX_ o);
+ if (hintsv && SvOK(hintsv)) {
+  OP *right = cBINOPx(o)->op_first;
+  OP *left = cBINOPx(right->op_sibling)->op_first->op_sibling;
+  right = cBINOPx(right)->op_first->op_sibling;
+  cp_arybase_process_assignment(hintsv, left, right);
+ }
+ return o;
+}
+
+#endif /* CP_ARYBASE */
 
 /* ========== SPLIT FEATURE ========== */
 
@@ -373,6 +456,12 @@ BOOT:
   PL_check[OP_QR     ]   = cp_ck_qr   ;
   PL_check[OP_SUBST  ]   = cp_ck_subst;
 #endif
+#endif
+#ifdef CP_ARYBASE
+  cp_arybase_old_ck_sassign = PL_check[OP_SASSIGN];
+  cp_arybase_old_ck_aassign = PL_check[OP_AASSIGN];
+  PL_check[OP_SASSIGN]      = cp_arybase_ck_sassign;
+  PL_check[OP_AASSIGN]      = cp_arybase_ck_aassign;
 #endif
  }
 }

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Classic-Perl
-version:            0.02a
+version:            0.03
 abstract:           Selectively reinstate deleted Perl features
 author:
     - Father Chrysostomos <sprout at, er, cpan.org>
@@ -12,9 +12,7 @@ build_requires:
     ExtUtils::MakeMaker:  0
     Test::More:           0
 requires:
-    perl:        5
-    Test::More:  0
-    XSLoader:    0
+    XSLoader:  0
 resources:
     bugtracker:  http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Classic-Perl
     license:     http://dev.perl.org/licenses/
@@ -22,7 +20,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.57_05
+generated_by:       ExtUtils::MakeMaker version 6.56
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

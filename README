@@ -1,4 +1,4 @@
-Classic::Perl, version 0.02
+Classic::Perl, version 0.03
 
 This reinstates features deleted in recent versions of perl.
 
@@ -9,8 +9,14 @@ The features we currently provide are:
 
 • $* - This was removed in perl 5.9.
 
+• $[ - This was removed in perl 5.15.3.
+
 
 RECENT CHANGES
+
+0.03
+----
+• New $[ feature for 5.15+
 
 0.02a
 -----
@@ -45,6 +51,8 @@ DEPENDENCIES
 
 This module requires perl 5 or higher.
 
+In Perl 5.15, it requires Array::Base and String::Base.
+
 
 DOCUMENTATION
 
@@ -60,7 +68,7 @@ Or try using man (it’s faster, in my experience):
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2010, Father Chrysostomos
+Copyright (C) 2010-11, Father Chrysostomos
 
 This program is free software; you may redistribute it, modify it, or
 both, under the same terms as perl.

@@ -4,6 +4,7 @@ Makefile.PL
 MANIFEST
 ptable.h
 README
+#t/arybase.t
 t/import.t
 t/multiline.t
 t/split.t
