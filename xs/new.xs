@@ -189,7 +189,7 @@ STATIC OP *cp_arybase_ck_sassign(pTHX_ OP *o) {
  if (hintsv && SvOK(hintsv)) {
   OP *right = cBINOPx(o)->op_first;
   OP *left = right->op_sibling;
-  cp_arybase_process_assignment(hintsv, left, right);
+  if (left) cp_arybase_process_assignment(hintsv, left, right);
  }
  return o;
 }
@@ -364,6 +364,7 @@ STATIC OP *cp_ck_sassign(pTHX_ OP *o) {
  if (
      hintsv && SvOK(hintsv)
   && ((BINOP *)o)->op_first->op_type == OP_CONST
+  && ((BINOP *)o)->op_first->op_sibling
   && ((BINOP *)o)->op_first->op_sibling->op_type == OP_RV2SV
   && ((BINOP *)((BINOP *)o)->op_first->op_sibling)->op_first->op_type
       == OP_GV

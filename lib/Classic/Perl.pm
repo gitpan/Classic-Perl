@@ -55,7 +55,7 @@ sub unimport {
 }
 
 BEGIN {
- $VERSION='0.03';
+ $VERSION='0.04';
  if($]>5.0089999){
   require XSLoader;
   XSLoader::load(__PACKAGE__, $VERSION);
@@ -82,13 +82,9 @@ Classic::Perl - Selectively reinstate deleted Perl features
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 SYNOPSIS
-
-  use Classic::Perl '$[';
-  $[ = 1;
-  print qw(a b c d)[2]; # prints "b"
 
   use Classic::Perl;
   # or
@@ -102,6 +98,10 @@ Version 0.03
   split //, "smat";
   print join " ", @_;
     # prints "s m a t" in perl 5.10.x; nothing in 5.12
+
+  use Classic::Perl '$[';
+  $[ = 1;
+  print qw(a b c d)[2]; # prints "b"
 
   use Classic::Perl '$*';
   $* = 1;
@@ -193,11 +193,13 @@ L<bug-Classic-Perl@rt.cpan.org>.
 
 =head1 ACKNOWLEDGEMENTS
 
-About half the code in the XS file was stolen from Vincent Pit's
+Much of the structural code in the XS file was stolen from Vincent Pit's
 C<autovivification> module and tweaked. The F<ptable.h> file was taken
 straight from his module without modifications. (I have been subsequently
 informed that he stole it from B::Hooks::OP::Check, which pilfered it from
 autobox, which filched it from perl. :-)
+
+Andrew Main (Zefram) added support for C<$[> in 5.16.
 
 =head1 SINE QUIBUS NON
 

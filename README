@@ -1,4 +1,4 @@
-Classic::Perl, version 0.03
+Classic::Perl, version 0.04
 
 This reinstates features deleted in recent versions of perl.
 
@@ -14,9 +14,15 @@ The features we currently provide are:
 
 RECENT CHANGES
 
+0.04
+----
+• Fixed a crashing bug that occurred with ||= in 5.9 and higher.
+• Fixed the changes file;  I somehow got one from a different  branch
+  in the 0.03 release, listing changes that never happened.
+
 0.03
 ----
-• New $[ feature for 5.15+
+• New $[ feature for 5.15+ (Thanks to Zefram for the patch!)
 
 0.02a
 -----

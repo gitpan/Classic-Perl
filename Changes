@@ -1,12 +1,15 @@
 Revision history for Classic::Perl
 
-0.03    27 March, 2011
-      • Feature names are now in :foo format.  (The old  'split'  and
-       '$*' names are still supported.)
-      • New :version feature,  which makes ->VERSION calls within the
-        lexical scope behave more like 5.8.x (bugs aside)
-      • New VERSION export, which behaves like 5.8.x’s UNIVERSAL::VER-
-        SION
+0.04    25 September, 2011
+      • Fixed a crashing bug that occurred with ||= in 5.9 and higher.
+        In  5.9,  it required a constant on the right  to  cause  the
+        crash. In 5.15.3 ||= would always crash.
+      • Fixed the  changes  file;  I  somehow  got  one  from  a  dif-
+        ferent branch in  the  0.03  release,  listing  changes  that
+        never happened.
+
+0.03    18 September, 2011
+      • New $[ feature for 5.15+ (Thanks to Zefram for the patch!)
 
 0.02a   17 October, 2010
         Make a test more resilient when certain OSes scramble line
