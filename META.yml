@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Classic-Perl
-version:            0.04
+version:            0.05
 abstract:           Selectively reinstate deleted Perl features
 author:
     - Father Chrysostomos <sprout at, er, cpan.org>

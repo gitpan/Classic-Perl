@@ -1,4 +1,4 @@
-Classic::Perl, version 0.04
+Classic::Perl, version 0.05
 
 This reinstates features deleted in recent versions of perl.
 
@@ -9,10 +9,16 @@ The features we currently provide are:
 
 • $* - This was removed in perl 5.9.
 
-• $[ - This was removed in perl 5.15.3.
+• $[ - This was removed in perl 5.15.3 and reinstated in 5.15.5. This
+  may be removed from  Classic::Perl  (and then reinstated if  it  is
+  again removed from Perl).
 
 
 RECENT CHANGES
+
+0.05
+----
+• Fixed tests to work in 5.8 and 5.6
 
 0.04
 ----
@@ -23,17 +29,6 @@ RECENT CHANGES
 0.03
 ----
 • New $[ feature for 5.15+ (Thanks to Zefram for the patch!)
-
-0.02a
------
-Make a test more resilient when certain OSes scramble line numbers in
-string evals.
-
-0.02
-----
-• $* in perl 5.9 and higher
-• use Classic::::Perl 5.008 import syntax
-• Fixed to work with perls built with -DDEBUGGING.
 
 
 INSTALLATION
@@ -74,7 +69,7 @@ Or try using man (it’s faster, in my experience):
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2010-11, Father Chrysostomos
+Copyright © 2010-12, Father Chrysostomos
 
 This program is free software; you may redistribute it, modify it, or
 both, under the same terms as perl.

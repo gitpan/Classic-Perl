@@ -55,7 +55,7 @@ sub unimport {
 }
 
 BEGIN {
- $VERSION='0.04';
+ $VERSION='0.05';
  if($]>5.0089999){
   require XSLoader;
   XSLoader::load(__PACKAGE__, $VERSION);
@@ -82,7 +82,7 @@ Classic::Perl - Selectively reinstate deleted Perl features
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =head1 SYNOPSIS
 
@@ -157,14 +157,11 @@ This feature provides the C<$[> variable, which, when set to an integer
 other than zero, offsets indices into arrays and strings.  For example,
 setting it to 1 (almost the only non-zero value actually used) means
 that the first element in an array has index 1 rather than the usual 0.
-The index offset is lexically scoped, as C<$[> was in Perl 5.0-5.14,
-unlike its behaviour in Perl 1-4.
+The index offset is lexically scoped, as C<$[> has been as of Perl 5.10,
+unlike its behaviour in Perl 5.0-5.8 (file-scoped) and Perl 1-4 (global).
 
-Some details of the index offsetting behaviour differ from C<$[>'s
-historical behaviour.  See L<Array::Base> and L<String::Base>, which
-provide the new semantics, for details.
-
-This is due to be removed from perl in 5.15.
+This is deprecated in Perl, but has not yet been removed.  If it is
+removed, Classic::Perl will continue to provide it.
 
 =item split
 
@@ -209,7 +206,7 @@ In Perl 5.16 and higher, L<Array::Base> and L<String::Base> are required.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010-11 Father Chrysostomos
+Copyright (C) 2010-12 Father Chrysostomos
 
   use Classic'Perl;
   split / /, 'org . cpan @ sprout';

@@ -1,5 +1,5 @@
 use warnings;
-no warnings qw(deprecated);
+no warnings qw(deprecated void);
 
 use Test::More tests => 24;
 
@@ -17,7 +17,7 @@ is(qw(a b c d e f)[4], "c");
 is(substr("abcdef", 4, 1), "c");
 
 {
- $[ = 3;
+ local $[ = 3;
  is(qw(a b c d e f)[4], "b");
  is(substr("abcdef", 4, 1), "b");
 }
